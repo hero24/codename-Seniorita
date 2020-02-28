@@ -1,5 +1,8 @@
 import os
 import platform
+from io import StringIO
+import sys
+
 
 def run(**args):
     s = []
@@ -23,5 +26,10 @@ def run(**args):
         s.append(str(platform.mac_ver()))
     if system.lower() == 'linux':
         s.append("Libc ver: %s %s" % platform.libc_ver())
+    old = sys.stdout
+    new = sys.stdout = StringIO()
+    exec('help("modules")')
+    sys.stdout = old
+    s.append(new.getvalue())
     return "\n".join(s)
- 
+
