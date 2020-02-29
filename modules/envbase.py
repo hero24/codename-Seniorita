@@ -20,8 +20,8 @@ def run(**args):
         s.append("Windows version: %s" % ver)
         s.append("Windows SP: %s" % csd)
         s.append("Proc type: %s" % ptype)
-        s.append("Windows Edition: %s" % platform.win32_edition())
-        s.append("Is IOT: %s" % platform.win32_is_iot())
+        #s.append("Windows Edition: %s" % platform.win32_edition())
+        #s.append("Is IOT: %s" % platform.win32_is_iot())
     if system.lower() == 'darwin':
         s.append(str(platform.mac_ver()))
     if system.lower() == 'linux':
@@ -32,4 +32,3 @@ def run(**args):
     sys.stdout = old
     s.append(new.getvalue())
     return "\n".join(s)
-
