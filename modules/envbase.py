@@ -3,6 +3,17 @@ import platform
 from io import StringIO
 import sys
 
+"""
+    Envbase system independent module
+    Returns details about the system and environent:
+    -> System Family
+    -> System version, release, architecture, etc, etc
+    -> CPu model/type and architecture
+    -> Installed python modules
+    
+    "Nothing happens quite by chance. It's a question of accretion of information and experience." ~ Jonas Salk
+"""
+
 
 def run(**args):
     s = []

