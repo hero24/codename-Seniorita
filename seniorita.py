@@ -101,9 +101,9 @@ class GitImporter:
         sys.modules[name] = module
         return module
 
-def module_runner(module, ghanlde, queue=task_queue):
+def module_runner(module, ghanlde, args, queue=task_queue):
     queue.put(1)
-    result = sys.modules[module].run()
+    result = sys.modules[module].run(**args)
     queue.get()
     ghandle.store_module_result(result)
 
@@ -115,7 +115,8 @@ while True:
     if task_queue.empty():
         config = ghandle.apply_config()
     for task in config:
-        t = threading.Thread(target=module_runner, args=(task['module'], ghandle, task_queue))
+	args = task['args'] if 'args' in task else {}
+        t = threading.Thread(target=module_runner, args=(task['module'], ghandle, args, task_queue))
         t.start()
         time.sleep(random.randint(1,10))
     time.sleep(random.randint(1000, 100000))
