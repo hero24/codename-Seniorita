@@ -26,7 +26,6 @@ def get_process_privilages(pid):
             if i[1] == 3:
                 priv_list += "%s|" % win32security.LookupPrivilegeName(None, i[0])
     except Exception as e:
-        print(e)
         priv_list += "N/A"
     return priv_list
 
@@ -55,7 +54,6 @@ def run(**args):
                   create_date, proc_owner, executable,
                   cmdline, pid, parent_pid, privilages
                  )
-            #print(log_msg)
             log_to_file(log_msg)
         except Exception as e:
             log_to_file(str(e))
