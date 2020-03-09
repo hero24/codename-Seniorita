@@ -8,7 +8,7 @@ import os
 from time import time
 
 """
-    "I'm breaking in, shaping up, then checking out on the prison bus" ~ Imagine Dragons
+    "I'm breaking in, shaping up, then checking out on the prison bus" ~ Imagine Dragons@Radioactive
 """
 
 def log_to_file(msg, csv=[]):
